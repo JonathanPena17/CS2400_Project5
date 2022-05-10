@@ -12,7 +12,8 @@ Phu Troung: Graph.java, Source Code
 
 Extra Features:
 1. Java interface and generic data types (10 pts)
-2. 
+2. Screencast
+3. Junit testing
 
 Crediting/References:
 
