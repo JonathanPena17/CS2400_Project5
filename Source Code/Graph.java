@@ -1,12 +1,16 @@
-public class Graph<E>
+import java.util.*;
+
+public class Graph<T> implements GraphInterface<T>
 {
     private boolean[][] edges; // edges[i][j] is true if there is a vertex from i to j
-    private E[] labels; // labels[i] contains the label for vertex i  
- 
+    private T[] labels; // labels[i] contains the label for vertex i  
+    private boolean[] visitedBFT;
+
     //** Constructor: */
     public Graph(int n) {
         edges = new boolean[n][n]; // All values initially false
-        labels = (E[]) new Object[n]; // All values initially null
+        labels = (T[]) new Object[n]; // All values initially null
+        visitedBFT = new boolean[n];
     }
     
 
@@ -25,7 +29,7 @@ public class Graph<E>
     }
 
     //Accessor method to get the label of a vertex of this Graph 
-    public E getLabel(int vertex) {
+    public T getLabel(int vertex) {
         return labels[vertex];
     }
 
@@ -53,7 +57,7 @@ public class Graph<E>
     }
     
     // Change the label of a vertex of this Graph
-     public void setLabel(int vertex, E newLabel) {
+     public void setLabel(int vertex, T newLabel) {
         labels[vertex] = newLabel;
     }
 
@@ -62,63 +66,91 @@ public class Graph<E>
         return labels.length;
     }
 
+    public int bftHelper(int vertex)//this helper verifies if a vertex is unvisited AND has a connection 
+    {
+        for(int i=0;i<edges[0].length;i++)
+            if(visitedBFT[i]==false && edges[vertex][i])
+              return i;
+        return -1;
+    }
+
     //** Implementation of BFS */
-    public QueueInterface<T> getBreadthFirstTraversal(T origin)
+    public void breadthFirstTraversal(T origin)
     {
-    resetVertices();
-    QueueInterface<T> traversalOrder = new LinkedQueue<>(); 
-    QueueInterface<VertexInterface<T>> vertexQueue = new LinkedQueue<>(); 
-    VertexInterface<T> originVertex = vertices.getValue(origin); 
-    originVertex.visit();
-    traversalOrder.enqueue(origin); // Enqueue vertex label 
-    vertexQueue.enqueue(originVertex); // Enqueue vertex
-    while (!vertexQueue.isEmpty())
-    {
-        VertexInterface<T> frontVertex = vertexQueue.dequeue(); 
-        Iterator<VertexInterface<T>> neighbors = frontVertex.getNeighborIterator(); 
-        while (neighbors.hasNext())
-        {
-            VertexInterface<T> nextNeighbor = neighbors.next(); 
-            if (!nextNeighbor.isVisited())
-            {
-                nextNeighbor.visit(); 
-                traversalOrder.enqueue(nextNeighbor.getLabel()); 
-                vertexQueue.enqueue(nextNeighbor);
-            }// end if
-        } //end while 
-    } // end while
-    return traversalOrder;
+    int startIndex = Arrays.asList(labels).indexOf(origin);//gets index of "origin"
+       Queue<Integer> queue = new LinkedList<>(); //creates a queue
+       int nextIndex; //an index counter
+       Arrays.fill(visitedBFT, false);//reset visited array to all "false"
+
+       System.out.println("Breadth First Traversal - starting from vertex \"" + labels[startIndex] + "\":");
+       visitedBFT[startIndex]=true;//starting from index of "origin"
+       System.out.print(labels[startIndex]);//print "origin"
+       queue.add(startIndex);//add visited index to queue
+       
+       while(!queue.isEmpty())
+       {
+           int currIndex=queue.poll();//pop head of queue
+           while((nextIndex = bftHelper(currIndex))!=-1)//while the next index is "unvisited"
+           {
+               visitedBFT[nextIndex]=true;//mark visited index as true in visited array
+               System.out.print(" " + labels[nextIndex]);//print out the visited label
+               queue.add(nextIndex);//add the next index to queue
+           }
+       }
+
+       System.out.println();
     } // end getBreadthFirstTraversal
+
+    public int dftHelper(int vertex, boolean[] visited) {//this helper tries to find an unvisited neighbor and returns the first one
+   
+        for (int i = 0; i < edges[vertex].length; i++) {
+            if (edges[vertex][i] && visited[i] == false)
+                return i;
+        }
+        return -1;
+        }
 
     //** Implementation of DFS */
 
-    public QueueInterface<T> getDepthFirstTraversal(T origin)
+    public void depthFirstTraversal(T origin)
     {
-        //assume graph is not empty
-        resetVertices();
-        QueueInterface<T> traversalOrder = new LinkedQueue<>(); 
-        StackInterface<VertexInterface<T>> vertexStack = new LinkedStack<>();
-
-        VertexInterface<T> originVertex = vertices.getValue(origin);
-        originVertex.visit();
-        traversalOrder.enqueue(origin); //Enqueue Vertex Label
-        vertexStack.push(originVertex); //Enqueue Vertex
-
-        while(!vertexStack.isEmpty())
-        {
-            VertexInterface<T> topVertex = vertexStack.peek();
-            VertexInterface<T> nextNeighbor = topVertex.getUnvistedNeighbor();
-
-            if (nextNeighbor!= null)
-            {
-                nextNeighbor.visit();
-                traversalOrder.enqueue(nextNeighbor.getlabel());
-                vertexStack.push(nextNeighbor);
+        int startIndex = Arrays.asList(labels).indexOf(origin);//finds index of "origin"
+        int n = edges.length;
+        boolean visitedDFT[] = new boolean[n];//create visited array to track visited vertices
+        System.out.println("Depth First Traversal - starting from vertex \"" + labels[startIndex] + "\":");
+    
+        Arrays.fill(visitedDFT, false);//reset visited array to all "false"
+       
+        Stack<Integer> stack = new Stack();//create a stack
+       
+        visitedDFT[startIndex]= true;//set starting index as "visited"
+        System.out.print(labels[startIndex]);//print label of starting index
+        stack.push(startIndex);//push it to stack
+    
+        while (!stack.isEmpty()) {
+            int neighbor = dftHelper(stack.peek(),visitedDFT);//try to find an adjacent vertex
+            if (neighbor == -1) {//can't find unvisited neighbor, pop stack
+                stack.pop();
+            } else {//found unvisited neighbor
+                visitedDFT[neighbor] = true;//set index of neighbor to "visited"
+                System.out.print(" "+ labels[neighbor]);//print it
+                stack.push(neighbor);//push to stack
             }
-            else // All neighbors are visited
-                vertexStack.pop();
-        } // end while
-        return traversalOrder;
+        }
+    
+        System.out.println();
+
     } // end GetDepthFirstTraversal
 
-} // End Graph
+    public void printConnections() {
+        for (int i = 0; i < edges.length; i++) {
+            //System.out.print(labels[j] + ": ");
+            for (int j = 0; j < edges[i].length; j++) {
+                if (edges[i][j])
+                    System.out.println("(" + labels[i] + ","+ labels[j] + ")");
+            }
+            System.out.println();
+        }
+    }
+    
+} // End Graphc
