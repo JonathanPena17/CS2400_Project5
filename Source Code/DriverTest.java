@@ -56,7 +56,7 @@ public class DriverTest
         Graph<String> g1 = createGraph();
         System.out.println("====== Breadth First Traversal ======\n");
         g1.breadthFirstTraversal("A");
-        String result = ;
+        String result = g1.breadthFirstTraversal(origin);;
         String expected = "Breadth First Traversal - starting from vertex"+"A\nA B D E G F H C I";
 
         assertEquals(expected, result);
@@ -69,7 +69,7 @@ public class DriverTest
         System.out.println("\n\n\n====== Depth First Traversal ======\n");
         g1.depthFirstTraversal("A");
 
-        String result = ;
+        String result = g1.depthFirstTraversal(origin);;
         String expected = "Depth First Traversal - starting from vertex"+"A\nA B E F H I C D G";
 
         assertEquals(expected, result);
