@@ -226,4 +226,4 @@ public class MatrixGraph
             System.out.println();
         }
     }// end printConnections
-}//end MatrixGraph
+}//end MatrixGraph.java
