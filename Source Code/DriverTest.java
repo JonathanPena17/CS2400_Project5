@@ -59,6 +59,7 @@ public class DriverTest
         String result = ;
         String expected = "Breadth First Traversal - starting from vertex"+"A\nA B D E G F H C I";
 
+        assertEquals(expected, result);
     }
 
     @Test
@@ -70,6 +71,7 @@ public class DriverTest
 
         String result = ;
         String expected = "Depth First Traversal - starting from vertex"+"A\nA B E F H I C D G";
-        
+
+        assertEquals(expected, result);
     }
 }
