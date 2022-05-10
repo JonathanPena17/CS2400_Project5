@@ -215,15 +215,4 @@ public class MatrixGraph
         }
         return result;
     }//end getUnvisted
-
-    public void printConnections() {
-        for (int i = 0; i < edges.length; i++) {
-            //System.out.print(labels[j] + ": ");
-            for (int j = 0; j < edges[i].length; j++) {
-                if (edges[i][j])
-                    System.out.println("(" + labels[i] + ","+ labels[j] + ")");
-            }
-            System.out.println();
-        }
-    }// end printConnections
-}//end MatrixGraph.java
+}//end MatrixGraph
