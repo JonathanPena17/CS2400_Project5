@@ -49,6 +49,7 @@ public class DriverTest
         g.addEdge(8, 5);
 
         return g;
+    }
 
     @Test
     public void testbreadthFirstTraversal()
