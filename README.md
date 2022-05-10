@@ -6,14 +6,14 @@ Phu Troung
 
 Responsibilites:
 
-Jonathan Pena: Driver.java, Graph.java, GraphInterface.java, Source Code 
+Jonathan Pena: Driver.java, Graph.java, GraphInterface.java, Source Code , Junit Testing
 
-Phu Troung: Graph.java, Source Code
+Phu Troung: Graph.java, Source Code, Junit Testing
 
 Extra Features:
 1. Java interface and generic data types (10 pts)
-2. Screencast
-3. Junit testing
+2. Screencast (10 pts)
+3. Junit testing (10 pts)
 
 Crediting/References:
 
