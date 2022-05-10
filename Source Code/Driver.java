@@ -47,24 +47,19 @@ public class Driver
         //add Edges for "I" (I,F)
         matrixGraph.addEdge(8, 5);
 
-        //matrixGraph.printGraph();
-        System.out.println("\n\nGraph Traversal: Directed Graphs");
-        System.out.println("\nTraversing the following graph with verticies and adjacencies:\n");
-        matrixGraph.printConnections();
-
         System.out.println("\n*****Adjacency Matrix*****\n");
         
         System.out.println("\n====== Breadth First Traversal ======\n");
 
-        LinkedQueue traversalBreadth2 = matrixGraph.getBreadthFirstTraversal(0);
+        LinkedQueue traversalBreadth1 = matrixGraph.getBreadthFirstTraversal(0);
 
-        printTraversalLabels_forMatrix(matrixGraph, traversalBreadth2);
+        printTraversalLabels_forMatrix(matrixGraph, traversalBreadth1);
 
         System.out.println("\n====== Depth First Traversal ======\n");
 
-        LinkedQueue traversalDepth2 = matrixGraph.getDepthFirstTraversal(0);
+        LinkedQueue traversalDepth1 = matrixGraph.getDepthFirstTraversal(0);
 
-        printTraversalLabels_forMatrix(matrixGraph, traversalDepth2);
+        printTraversalLabels_forMatrix(matrixGraph, traversalDepth1);
 
         // Adjacency List 
         ListGraph graphList = new ListGraph(9);
@@ -118,17 +113,19 @@ public class Driver
 
         System.out.println("\n====== Breadth First Traversal ======\n");
 
-        LinkedQueue traversalBreadth1 = graphList.getBreadthFirstTraversal(0);
+        LinkedQueue traversalBreadth = graphList.getBreadthFirstTraversal(0);
 
-        printTraversalLabels_forList(graphList, traversalBreadth1);
+        printTraversalLabels_forList(graphList, traversalBreadth);
 
         System.out.println("\n====== Depth First Traversal ======\n");
 
-        LinkedQueue traversalDepth1 = graphList.getDepthFirstTraversal(0);
+        LinkedQueue traversalDepth = graphList.getDepthFirstTraversal(0);
 
-        printTraversalLabels_forList(graphList, traversalDepth1);
+        printTraversalLabels_forList(graphList, traversalDepth);
 
         System.out.println();
+
+
     }
 
     public static void printTraversalLabels_forMatrix(MatrixGraph matrixGraph, LinkedQueue traversal) {
@@ -155,4 +152,3 @@ public class Driver
         System.out.println();
     }
 }
-
