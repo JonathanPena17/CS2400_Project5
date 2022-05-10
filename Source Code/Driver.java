@@ -1,67 +1,158 @@
 public class Driver 
 {
-    static Graph<String> createGraph(){
-        Graph<String> g = new Graph<>(9);
+    public static void main(String []args) 
+    {
+        //Adjancy Matrix
+        MatrixGraph matrixGraph = new MatrixGraph(9);
 
-        g.setLabel(0, "A");
-        g.setLabel(1, "B");
-        g.setLabel(2, "D");
-        g.setLabel(3, "E");
-        g.setLabel(4, "G");
-        g.setLabel(5, "F");
-        g.setLabel(6, "H");
-        g.setLabel(7, "C");
-        g.setLabel(8, "I");
+        matrixGraph.setLabel(0, 'A');
+        matrixGraph.setLabel(1, 'B');
+        matrixGraph.setLabel(2, 'D');
+        matrixGraph.setLabel(3, 'E');
+        matrixGraph.setLabel(4, 'G');
+        matrixGraph.setLabel(5, 'F');
+        matrixGraph.setLabel(6, 'H');
+        matrixGraph.setLabel(7, 'C');
+        matrixGraph.setLabel(8, 'I');
 
         //add Edges for "A" (A,B)(A,D)(A,E)
-        g.addEdge(0, 1);
-        g.addEdge(0, 2);
-        g.addEdge(0, 3);
+        matrixGraph.addEdge(0, 1);
+        matrixGraph.addEdge(0, 2);
+        matrixGraph.addEdge(0, 3);
 
         //add Edges for "B" (B,E)
-        g.addEdge(1, 3);
+        matrixGraph.addEdge(1, 3);
 
         //add Edges for "D" (D,G)
-        g.addEdge(2, 4);
+        matrixGraph.addEdge(2, 4);
 
         //add Edges for "E" (E,F) (E,H)
-        g.addEdge(3, 5);
-        g.addEdge(3, 6);
+        matrixGraph.addEdge(3, 5);
+        matrixGraph.addEdge(3, 6);
 
         //add Edges for "G" (G,H)
-        g.addEdge(4, 6);
+        matrixGraph.addEdge(4, 6);
         
         //add Edges for "F" (F,C) (F,H)
-        g.addEdge(5, 7);
-        g.addEdge(5, 6);
+        matrixGraph.addEdge(5, 7);
+        matrixGraph.addEdge(5, 6);
 
         //add Edges for "H" (H,I)
-        g.addEdge(6, 8);
+        matrixGraph.addEdge(6, 8);
 
         //add Edges for "C" (C,B)
-        g.addEdge(7, 1);
+        matrixGraph.addEdge(7, 1);
 
 
         //add Edges for "I" (I,F)
-        g.addEdge(8, 5);
+        matrixGraph.addEdge(8, 5);
 
-        return g;
-    }
-
-    public static void main(String[] args)
-    {
-        Graph<String> g1 = createGraph();
-
+        //matrixGraph.printGraph();
         System.out.println("\n\nGraph Traversal: Directed Graphs");
         System.out.println("\nTraversing the following graph with verticies and adjacencies:\n");
-        g1.printConnections();
-        
-        System.out.println("====== Breadth First Traversal ======\n");
-        
-        g1.breadthFirstTraversal("A");
+        matrixGraph.printConnections();
 
-        System.out.println("\n\n\n====== Depth First Traversal ======\n");
+        System.out.println("\n*****Adjacency Matrix*****\n");
+        
+        System.out.println("\n====== Breadth First Traversal ======\n");
 
-        g1.depthFirstTraversal("A");
+        LinkedQueue traversalBreadth2 = matrixGraph.getBreadthFirstTraversal(0);
+
+        printTraversalLabels_forMatrix(matrixGraph, traversalBreadth2);
+
+        System.out.println("\n====== Depth First Traversal ======\n");
+
+        LinkedQueue traversalDepth2 = matrixGraph.getDepthFirstTraversal(0);
+
+        printTraversalLabels_forMatrix(matrixGraph, traversalDepth2);
+
+        // Adjacency List 
+        ListGraph graphList = new ListGraph(9);
+
+        graphList.setLabel(0, 'A');
+        graphList.setLabel(1, 'B');
+        graphList.setLabel(2, 'D');
+        graphList.setLabel(3, 'E');
+        graphList.setLabel(4, 'G');
+        graphList.setLabel(5, 'F');
+        graphList.setLabel(6, 'H');
+        graphList.setLabel(7, 'C');
+        graphList.setLabel(8, 'I');
+
+        //add Edges for "A" (A,B)(A,D)(A,E)
+        graphList.addEdge(0, 1);
+        graphList.addEdge(0, 2);
+        graphList.addEdge(0, 3);
+
+        //add Edges for "B" (B,E)
+        graphList.addEdge(1, 3);
+
+        //add Edges for "D" (D,G)
+        graphList.addEdge(2, 4);
+
+        //add Edges for "E" (E,F) (E,H)
+        graphList.addEdge(3, 5);
+        graphList.addEdge(3, 6);
+
+        //add Edges for "G" (G,H)
+        graphList.addEdge(4, 6);
+        
+        //add Edges for "F" (F,C) (F,H)
+        graphList.addEdge(5, 7);
+        graphList.addEdge(5, 6);
+
+        //add Edges for "H" (H,I)
+        graphList.addEdge(6, 8);
+
+        //add Edges for "C" (C,B)
+        graphList.addEdge(7, 1);
+
+
+        //add Edges for "I" (I,F)
+        graphList.addEdge(8, 5);
+
+        
+        
+        //Print
+        System.out.println("\n*****Adjacency List*****\n");
+
+        System.out.println("\n====== Breadth First Traversal ======\n");
+
+        LinkedQueue traversalBreadth1 = graphList.getBreadthFirstTraversal(0);
+
+        printTraversalLabels_forList(graphList, traversalBreadth1);
+
+        System.out.println("\n====== Depth First Traversal ======\n");
+
+        LinkedQueue traversalDepth1 = graphList.getDepthFirstTraversal(0);
+
+        printTraversalLabels_forList(graphList, traversalDepth1);
+
+        System.out.println();
+    }
+
+    public static void printTraversalLabels_forMatrix(MatrixGraph matrixGraph, LinkedQueue traversal) {
+
+        for (int i = 0; i < matrixGraph.getSize(); i++) {
+            int vertex = traversal.dequeue();
+            char label = matrixGraph.getLabel(vertex);
+
+            System.out.print(label + " ");
+        }
+
+        System.out.println();
+    }
+
+    public static void printTraversalLabels_forList(ListGraph listGraph, LinkedQueue traversal) {
+
+        for (int i = 0; i < listGraph.getSize(); i++) {
+            int vertex = traversal.dequeue();
+            char label = listGraph.getLabel(vertex);
+
+            System.out.print(label + " ");
+        }
+
+        System.out.println();
     }
 }
+
