@@ -82,7 +82,6 @@ public class Graph<T> implements GraphInterface<T>
        int nextIndex; //an index counter
        Arrays.fill(visitedBFT, false);//reset visited array to all "false"
 
-       System.out.println("Breadth First Traversal - starting from vertex \"" + labels[startIndex] + "\":");
        visitedBFT[startIndex]=true;//starting from index of "origin"
        System.out.print(labels[startIndex]);//print "origin"
        queue.add(startIndex);//add visited index to queue
@@ -117,7 +116,6 @@ public class Graph<T> implements GraphInterface<T>
         int startIndex = Arrays.asList(labels).indexOf(origin);//finds index of "origin"
         int n = edges.length;
         boolean visitedDFT[] = new boolean[n];//create visited array to track visited vertices
-        System.out.println("Depth First Traversal - starting from vertex \"" + labels[startIndex] + "\":");
     
         Arrays.fill(visitedDFT, false);//reset visited array to all "false"
        
